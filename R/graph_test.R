@@ -189,18 +189,19 @@ graph_test <- function(cds,
   expression_family = expression_family, mc.cores=cores,
   ignore.interactive = TRUE)
 
-  test_res <- do.call(rbind.data.frame, test_res)
-  row.names(test_res) <- row.names(cds)
-  test_res <- merge(test_res, rowData(cds), by="row.names")
+  #test_res <- do.call(rbind.data.frame, test_res)
+  #row.names(test_res) <- row.names(cds)
+  #test_res <- merge(test_res, rowData(cds), by="row.names")
   #remove the first column and set the row names to the first column
-  row.names(test_res) <- test_res[, 1]
-  test_res[, 1] <- NULL
-  test_res$q_value <- 1
-  test_res$q_value[which(test_res$status == 'OK')] <-
-    stats::p.adjust(subset(test_res, status == 'OK')[, 'p_value'], method="BH")
-  test_res$status = as.character(test_res$status)
+  #row.names(test_res) <- test_res[, 1]
+  #test_res[, 1] <- NULL
+  #test_res$q_value <- 1
+  #test_res$q_value[which(test_res$status == 'OK')] <-
+  #  stats::p.adjust(subset(test_res, status == 'OK')[, 'p_value'], method="BH")
+  #test_res$status = as.character(test_res$status)
   # make sure gene name ordering in the DEG test result is the same as the CDS
-  test_res[row.names(cds), ]
+  #test_res[row.names(cds), ]
+  test_res
 }
 
 my.moran.test <- function (x, listw, wc, alternative = "greater",
