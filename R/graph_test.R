@@ -144,7 +144,7 @@ graph_test <- function(cds,
                                k=k,
                                verbose=verbose)
   print("nn_control:")
-  head(nn_control)
+  print(head(nn_control))
 
   lw <- calculateLW(cds=cds,
                     k = k,
@@ -153,7 +153,8 @@ graph_test <- function(cds,
                     verbose = verbose,
                     nn_control = nn_control)
   print("is.na(lw)")
-  is.na(lw)
+  print(is.na(lw))
+  print(head(lw))
 
   if(verbose) {
     message("Performing Moran's I test: ...")
@@ -163,7 +164,7 @@ graph_test <- function(cds,
 
   wc <- spdep::spweights.constants(lw, zero.policy = TRUE, adjust.n = TRUE)
   print("wc:")
-  head(wc)
+  print(head(wc))
   
   test_res <- pbmcapply::pbmclapply(row.names(exprs_mat),
                                     FUN = function(x, sz, alternative,
