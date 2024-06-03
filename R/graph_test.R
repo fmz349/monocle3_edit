@@ -136,12 +136,15 @@ graph_test <- function(cds,
                  ' before running graph_test.'))
   }
   nn_control_default <- get_global_variable('nn_control_annoy_euclidean')
+  print(paste("nn_control_default:",nn_control_default))
   nn_control <- set_nn_control(mode=3,
                                nn_control=nn_control,
                                nn_control_default=nn_control_default,
                                nn_index=NULL,
                                k=k,
                                verbose=verbose)
+  print("nn_control:")
+  head(nn_control)
 
   lw <- calculateLW(cds=cds,
                     k = k,
@@ -149,6 +152,8 @@ graph_test <- function(cds,
                     reduction_method = reduction_method,
                     verbose = verbose,
                     nn_control = nn_control)
+  print("is.na(lw)")
+  is.na(lw)
 
   if(verbose) {
     message("Performing Moran's I test: ...")
@@ -157,6 +162,9 @@ graph_test <- function(cds,
   sz <- size_factors(cds)[attr(lw, "region.id")]
 
   wc <- spdep::spweights.constants(lw, zero.policy = TRUE, adjust.n = TRUE)
+  print("wc:")
+  head(wc)
+  
   test_res <- pbmcapply::pbmclapply(row.names(exprs_mat),
                                     FUN = function(x, sz, alternative,
                                                    method, expression_family) {
